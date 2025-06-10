@@ -1,6 +1,29 @@
 # Tinyami Node.js Client
 
-Official Node.js client for the Tinyami API - Image optimization service.
+**tinyami-node** is the official Node.js client for the [Tinyami API](https://api.tinyami.com/docs) – a powerful image optimization service for developers.
+
+With this package, you can easily upload images, trigger optimization, and check optimization status via Tinyami's REST API.
+
+---
+
+## 🚀 Features
+
+- Upload images to Tinyami
+- Optimize, convert, resize images by ID
+- Check image optimization status
+- Lightweight and easy-to-use
+- Written in TypeScript
+
+---
+
+## 🔐 Getting an API Key
+
+To use this package, you’ll need a Tinyami API key.
+
+1. Go to [https://tinyami.com](https://tinyami.com)
+2. Sign up or log in to your account
+3. Navigate to the [https://tinyami.com/api-keys](https://tinyami.com/api-keys) section
+4. Generate a new API key
 
 ## Installation
 
@@ -61,6 +84,10 @@ Configuration options:
 ##### uploadImage(filePath: string): Promise<ImageUploadResponse>
 
 Uploads an image file to Tinyami. Supports large file uploads with proper FormData handling.
+
+##### uploadImageFromUrl(url: string): Promise<ImageUploadResponse>
+
+Uploads an image url to Tinyami. Supports large file uploads with proper FormData handling.
 
 ##### optimizeImage(imageId: number): Promise<ImageOptimizeResponse>
 
