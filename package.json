@@ -38,10 +38,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tinyami/tinyami-node"
+    "url": "https://github.com/tinyami-app/tinyami-api-node"
   },
   "bugs": {
-    "url": "https://github.com/tinyami/tinyami-node/issues"
+    "url": "https://github.com/tinyami-app/tinyami-api-node/issues"
   },
-  "homepage": "https://github.com/tinyami/tinyami-node#readme"
+  "homepage": "https://github.com/tinyami-app/tinyami-api-node#readme"
 }

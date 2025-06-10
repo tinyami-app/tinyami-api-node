@@ -116,4 +116,14 @@ export class TinyamiClient {
   async deleteImageFormat(imageId: number, formatId: number): Promise<void> {
     return images.deleteImageFormat(this.client, imageId, formatId);
   }
+
+  /**
+   * Delete a variant for an image
+   * @param imageId - ID of the uploaded image
+   * @param variantId - ID of the variant to delete
+   * @returns Promise that resolves when the variant is deleted
+   */
+  async deleteImageVariant(imageId: number, variantId: number): Promise<void> {
+    return images.deleteImageVariant(this.client, imageId, variantId);
+  }
 }

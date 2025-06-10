@@ -67,9 +67,19 @@ export async function convertImage(
   imageId: number, 
   type: string
 ): Promise<ImageConvertResponse> {
+  // Validate type parameter
+  const validTypes = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+  if (!validTypes.includes(type.toLowerCase())) {
+    throw new Error(`Invalid type. Must be one of: ${validTypes.join(', ')}`);
+  }
+  const form = new FormData();
+  form.append('type', type);
+  const headers = form.getHeaders();
+  // Send as application/x-www-form-urlencoded instead of FormData
   const response = await client.post<ImageConvertResponse>(
     `/images/${imageId}/convert`,
-    { type }
+    form,
+    { headers }
   );
   return response.data;
 }
@@ -81,9 +91,15 @@ export async function resizeImage(
   width?: number,
   height?: number
 ): Promise<ImageResizeResponse> {
+  const form = new FormData();
+  form.append('method', method);
+  form.append('width', width?.toString() || '');
+  form.append('height', height?.toString() || '');
+  const headers = form.getHeaders();
   const response = await client.post<ImageResizeResponse>(
     `/images/${imageId}/resize`,
-    { method, width, height }
+    form,
+    { headers }
   );
   return response.data;
 }
@@ -110,4 +126,12 @@ export async function deleteImageFormat(
   formatId: number
 ): Promise<void> {
   await client.delete(`/images/${imageId}/formats/${formatId}`);
+}
+
+export async function deleteImageVariant(
+  client: AxiosInstance,
+  imageId: number,
+  variantId: number
+): Promise<void> {
+  await client.delete(`/images/${imageId}/variants/${variantId}`);
 }

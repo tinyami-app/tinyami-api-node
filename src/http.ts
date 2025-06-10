@@ -47,11 +47,11 @@ export function createHttpClient(config: TinyamiConfig): AxiosInstance {
 
   client.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{ message?: string }>) => {
+    (error: AxiosError<{ message?: string; detail?: string }>) => {
       if (error.response) {
         const tinyamiError: TinyamiError = {
           code: error.response.status.toString(),
-          message: error.response.data?.message || 'An error occurred',
+          message: error.response.data?.message || error.response.data?.detail || 'An error occurred',
           details: error.response.data,
         };
         throw new TinyamiHttpError(tinyamiError);
