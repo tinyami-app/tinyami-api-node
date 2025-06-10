@@ -31,7 +31,7 @@ const optimizeResult = await client.optimizeImage(uploadResult.image.id);
 console.log('Optimized image URL:', optimizeResult.optimized.preview_url);
 
 // Check image status
-const status = await client.getImageStatus(uploadResult.image.id);
+const status = await client.getImageInfo(uploadResult.image.id);
 console.log('Image status:', status.status);
 
 // Delete the image
@@ -62,15 +62,15 @@ Configuration options:
 
 Uploads an image file to Tinyami. Supports large file uploads with proper FormData handling.
 
-##### optimizeImage(imageId: string): Promise<ImageOptimizeResponse>
+##### optimizeImage(imageId: number): Promise<ImageOptimizeResponse>
 
 Optimizes a previously uploaded image.
 
-##### getImageStatus(imageId: string): Promise<ImageStatusResponse>
+##### getImageInfo(imageId: number): Promise<ImageStatusResponse>
 
 Gets the current status of an image.
 
-##### deleteImage(imageId: string): Promise<void>
+##### deleteImage(imageId: number): Promise<void>
 
 Deletes an uploaded image.
 
@@ -80,13 +80,13 @@ Gets a paginated list of images.
 - `page`: Page number (default: 1)
 - `limit`: Number of images per page (default: 20, max: 50)
 
-##### convertImage(imageId: string, type: string): Promise<ImageConvertResponse>
+##### convertImage(imageId: number, type: string): Promise<ImageConvertResponse>
 
 Converts an image to a different format.
 - `imageId`: ID of the image to convert
 - `type`: Target format (e.g., 'jpg', 'png', 'webp', 'avif')
 
-##### resizeImage(imageId: string, method: string, width?: number, height?: number): Promise<ImageResizeResponse>
+##### resizeImage(imageId: number, method: string, width?: number, height?: number): Promise<ImageResizeResponse>
 
 Resizes an image using specified method and dimensions.
 - `imageId`: ID of the image to resize
@@ -94,17 +94,17 @@ Resizes an image using specified method and dimensions.
 - `width`: Target width (optional)
 - `height`: Target height (optional)
 
-##### getImageFormats(imageId: string): Promise<FormatListResponse>
+##### getImageFormats(imageId: number): Promise<FormatListResponse>
 
 Gets all available formats for a specific image.
 - `imageId`: ID of the image
 
-##### getImageVariants(imageId: string): Promise<VariantListResponse>
+##### getImageVariants(imageId: number): Promise<VariantListResponse>
 
 Gets all variants of a specific image.
 - `imageId`: ID of the image
 
-##### deleteImageFormat(imageId: string, formatId: string): Promise<void>
+##### deleteImageFormat(imageId: number, formatId: string): Promise<void>
 
 Deletes a specific format of an image.
 - `imageId`: ID of the image
