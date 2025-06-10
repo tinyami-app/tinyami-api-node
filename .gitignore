@@ -1,0 +1,33 @@
+# Node dependencies
+node_modules/
+
+# Output folders
+dist/
+build/
+
+# Env files
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# TypeScript cache
+*.tsbuildinfo
+
+# VSCode settings
+.vscode/
+
+# Test coverage
+coverage/
+
+# Mac file system metadata
+*.swp
+
+test.*
