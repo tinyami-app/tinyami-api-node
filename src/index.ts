@@ -35,7 +35,7 @@ export class TinyamiClient {
    * @param imageId - ID of the uploaded image
    * @returns Promise with optimization response
    */
-  async optimizeImage(imageId: number, format: string): Promise<ImageOptimizeResponse> {
+  async optimizeImage(imageId: number, format: string): Promise<ImageOptimizeResponse | { success: false; error: any }> {
     return images.optimizeImage(this.client, imageId, format);
   }
 

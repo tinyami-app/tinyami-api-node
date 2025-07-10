@@ -34,12 +34,36 @@ export async function uploadImageFromUrl(client: AxiosInstance, image_url: strin
   return response.data;
 }
 
-export async function optimizeImage(client: AxiosInstance, imageId: number, format: string): Promise<ImageOptimizeResponse> {
-  const form = new FormData();
-  form.append('type', format);
-  const headers = form.getHeaders();
-  const response = await client.post<ImageOptimizeResponse>(`/images/${imageId}/optimize`, form, { headers });
-  return response.data;
+export async function optimizeImage(client: AxiosInstance, imageId: number, format: string): Promise<ImageOptimizeResponse | { success: false; error: any }> {
+  try {
+    // Clean the format parameter - remove any dot prefix
+    const cleanFormat = format.replace(/^\./, '').toLowerCase();
+    
+    // Validate format
+    const validFormats = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+    if (!validFormats.includes(cleanFormat)) {
+      return {
+        success: false,
+        error: {
+          code: 'INVALID_FORMAT',
+          message: `Invalid format: ${format}. Must be one of: ${validFormats.join(', ')}`,
+          details: { provided: format, cleaned: cleanFormat }
+        }
+      };
+    }
+    
+    const form = new FormData();
+    form.append('type', cleanFormat);
+    const headers = form.getHeaders();
+    const response = await client.post<ImageOptimizeResponse>(`/images/${imageId}/optimize`, form, { headers });
+    return response.data;
+  } catch (error: any) {
+    // Return error as JSON instead of throwing
+    return {
+      success: false,
+      error: error.error || error
+    };
+  }
 }
 
 export async function getImageInfo(client: AxiosInstance, imageId: number): Promise<ImageStatusResponse> {

@@ -54,9 +54,24 @@ export function createHttpClient(config: TinyamiConfig): AxiosInstance {
           message: error.response.data?.message || error.response.data?.detail || 'An error occurred',
           details: error.response.data,
         };
-        throw new TinyamiHttpError(tinyamiError);
+        // Instead of throwing, return a rejected promise with the error data
+        return Promise.reject({
+          success: false,
+          error: tinyamiError,
+          status: error.response.status,
+          statusText: error.response.statusText
+        });
       }
-      throw error;
+      return Promise.reject({
+        success: false,
+        error: {
+          code: 'NETWORK_ERROR',
+          message: error.message || 'Network error occurred',
+          details: null
+        },
+        status: 0,
+        statusText: 'Network Error'
+      });
     }
   );
 
